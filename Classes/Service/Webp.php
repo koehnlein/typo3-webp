@@ -30,7 +30,8 @@ class Webp
         $targetFilePath = $processedFile->getForLocalProcessing(false);
 
         $adapterClass = Configuration::get('adapter');
-        $parameters = Configuration::get('parameters');
+        $fileExt = ucfirst(strtolower($originalFile->getExtension()));
+        $parameters = Configuration::get('parameters' . $fileExt) ? Configuration::get('parameters' . $fileExt) : Configuration::get('parameters');
         /** @var AdapterInterface $adapter */
         $adapter = GeneralUtility::makeInstance($adapterClass, $parameters);
         $adapter->convert(
